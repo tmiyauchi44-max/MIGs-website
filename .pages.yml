@@ -1,0 +1,344 @@
+media:
+  input: media
+  output: media
+content:
+- name: home
+  label: トップページ
+  type: file
+  path: data/pages/home.json
+  format: json
+  fields:
+  - name: title
+    label: タイトル
+    type: string
+  - name: intro
+    label: 紹介文
+    type: text
+  - name: hero_image
+    label: メイン写真
+    type: image
+  - name: hero_alt
+    label: 写真の説明
+    type: string
+  - name: eyebrow
+    label: 英語の小見出し
+    type: string
+  - name: button_label
+    label: ボタンの文字
+    type: string
+  - name: section_title
+    label: 案内セクションのタイトル
+    type: string
+  - name: section_intro
+    label: 案内セクションの紹介文
+    type: text
+- name: about
+  label: MIGsについて
+  type: file
+  path: data/pages/about.json
+  format: json
+  fields:
+  - name: title
+    label: タイトル
+    type: string
+  - name: intro
+    label: 紹介文
+    type: text
+  - name: business
+    label: 事業紹介
+    type: text
+  - name: features
+    label: 特徴（追加・削除可能）
+    type: object
+    list:
+      collapsible:
+        collapsed: false
+        summary: '{title}'
+    fields:
+    - name: title
+      label: 特徴の見出し
+      type: string
+    - name: description
+      label: 特徴の説明
+      type: text
+  - name: photo
+    label: 写真
+    type: image
+  - name: photo_alt
+    label: 写真の説明
+    type: string
+- name: short
+  label: 短期留学・一覧ページ
+  type: file
+  path: data/pages/short-term.json
+  format: json
+  fields:
+  - name: title
+    label: タイトル
+    type: string
+  - name: intro
+    label: 紹介文
+    type: text
+  - name: image
+    label: 写真
+    type: image
+  - name: notice
+    label: 注意書き
+    type: text
+- name: work
+  label: ワーキングホリデー・一覧ページ
+  type: file
+  path: data/pages/working-holiday.json
+  format: json
+  fields:
+  - name: title
+    label: タイトル
+    type: string
+  - name: intro
+    label: 紹介文
+    type: text
+  - name: image
+    label: 写真
+    type: image
+  - name: notice
+    label: 注意書き
+    type: text
+- name: contact
+  label: お問い合わせ
+  type: file
+  path: data/pages/contact.json
+  format: json
+  fields:
+  - name: title
+    label: タイトル
+    type: string
+  - name: intro
+    label: 案内文
+    type: text
+  - name: guidance
+    label: 問い合わせ時の案内
+    type: text
+  - name: email
+    label: メールアドレス
+    type: string
+  - name: phone
+    label: 電話番号（任意）
+    type: string
+  - name: line_url
+    label: LINEリンク（URL）
+    type: string
+  - name: line_label
+    label: LINEボタンの表示名
+    type: string
+  - name: availability
+    label: 補足・受付案内
+    type: text
+  - name: photo
+    label: 写真
+    type: image
+- name: short_term
+  label: 短期留学：国別プログラム
+  type: collection
+  path: data/short-term
+  format: json
+  filename: '{fields.slug}.json'
+  view:
+    primary: name
+    fields:
+    - name
+    - published
+    - order
+  fields:
+  - name: name
+    label: 国名
+    type: string
+    required: true
+  - name: slug
+    label: URL用ID（半角英数字・ハイフン）
+    type: string
+    required: true
+    description: 'ファイル名と一致させてください。例: australia'
+    pattern: ^[a-z0-9-]+$
+  - name: subtitle
+    label: 短い紹介文
+    type: string
+  - name: description
+    label: 詳細な紹介文
+    type: text
+  - name: duration
+    label: 期間
+    type: text
+  - name: price
+    label: 料金
+    type: text
+  - name: photo
+    label: 写真
+    type: image
+  - name: photo_alt
+    label: 写真の説明
+    type: string
+  - name: notes
+    label: 注意事項
+    type: text
+  - name: published
+    label: 公開する
+    type: boolean
+  - name: order
+    label: 表示順（数字）
+    type: number
+  exclude:
+  - index.json
+- name: working_holiday
+  label: ワーキングホリデー：国別プログラム
+  type: collection
+  path: data/working-holiday
+  format: json
+  filename: '{fields.slug}.json'
+  view:
+    primary: name
+    fields:
+    - name
+    - published
+    - order
+  fields:
+  - name: name
+    label: 国名
+    type: string
+    required: true
+  - name: slug
+    label: URL用ID（半角英数字・ハイフン）
+    type: string
+    required: true
+    description: 'ファイル名と一致させてください。例: australia'
+    pattern: ^[a-z0-9-]+$
+  - name: subtitle
+    label: 短い紹介文
+    type: string
+  - name: description
+    label: 詳細な紹介文
+    type: text
+  - name: eligibility
+    label: 参加条件
+    type: text
+  - name: price
+    label: 料金
+    type: text
+  - name: photo
+    label: 写真
+    type: image
+  - name: photo_alt
+    label: 写真の説明
+    type: string
+  - name: notes
+    label: 注意事項
+    type: text
+  - name: published
+    label: 公開する
+    type: boolean
+  - name: order
+    label: 表示順（数字）
+    type: number
+  exclude:
+  - index.json
+- name: pronunciation
+  label: 発音講座・一覧ページ
+  type: file
+  path: data/pages/pronunciation.json
+  format: json
+  fields:
+  - name: title
+    label: タイトル
+    type: string
+  - name: intro
+    label: 紹介文
+    type: text
+  - name: image
+    label: メイン写真
+    type: image
+  - name: section_title
+    label: コース一覧の見出し
+    type: string
+  - name: section_intro
+    label: コース一覧の説明
+    type: text
+  - name: notice
+    label: 注意書き
+    type: text
+- name: pronunciation_basic
+  label: 発音講座：基礎習得コース（2か月）
+  type: file
+  path: data/pages/pronunciation-basic.json
+  format: json
+  fields:
+  - name: name
+    label: コース名
+    type: string
+  - name: subtitle
+    label: 短い紹介文
+    type: string
+  - name: description
+    label: コース詳細・特徴
+    type: text
+  - name: duration
+    label: 受講期間
+    type: text
+  - name: audience
+    label: 対象者・参加条件
+    type: text
+  - name: curriculum
+    label: 授業内容
+    type: text
+  - name: format
+    label: 授業形式・時間・回数
+    type: text
+  - name: price
+    label: 料金
+    type: text
+  - name: photo
+    label: 写真
+    type: image
+  - name: photo_alt
+    label: 写真の説明
+    type: string
+  - name: notes
+    label: 注意事項
+    type: text
+- name: pronunciation_monthly
+  label: 発音講座：月額コース（1か月）
+  type: file
+  path: data/pages/pronunciation-monthly.json
+  format: json
+  fields:
+  - name: name
+    label: コース名
+    type: string
+  - name: subtitle
+    label: 短い紹介文
+    type: string
+  - name: description
+    label: コース詳細・特徴
+    type: text
+  - name: duration
+    label: 受講期間
+    type: text
+  - name: audience
+    label: 対象者・参加条件
+    type: text
+  - name: curriculum
+    label: 授業内容
+    type: text
+  - name: format
+    label: 授業形式・時間・回数
+    type: text
+  - name: price
+    label: 料金
+    type: text
+  - name: photo
+    label: 写真
+    type: image
+  - name: photo_alt
+    label: 写真の説明
+    type: string
+  - name: notes
+    label: 注意事項
+    type: text
