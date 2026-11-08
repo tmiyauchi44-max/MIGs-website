@@ -1,0 +1,13 @@
+{
+  "name": "オーストラリア",
+  "slug": "australia",
+  "subtitle": "海外で生活しながら働く経験",
+  "description": "制度やプログラムの詳細を準備中です。",
+  "eligibility": "各国の最新の公式要件をご確認ください。",
+  "price": "未定（お問い合わせください）",
+  "photo": "media/australia.svg",
+  "photo_alt": "オーストラリアの紹介用イメージ画像（仮）",
+  "notes": "ビザの年齢・国籍・申請条件等は変更される場合があります。",
+  "published": true,
+  "order": 1
+}

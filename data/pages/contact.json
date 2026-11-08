@@ -1,0 +1,11 @@
+{
+  "title": "お問い合わせ",
+  "intro": "留学やワーキングホリデーに関するご相談は、以下の連絡先からお問い合わせください。",
+  "guidance": "ご希望の国、渡航時期、期間、相談したい内容をお知らせいただくとご案内がスムーズです。",
+  "email": "example@example.com",
+  "phone": "",
+  "line_url": "",
+  "line_label": "LINEで問い合わせる",
+  "availability": "メールアドレスとLINEリンクは公開前に必ず実際の連絡先へ変更してください。",
+  "photo": "media/contact.svg"
+}
