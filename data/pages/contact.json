@@ -6,6 +6,5 @@
   "form_endpoint": "https://formspree.io/f/meaaboap",
   "line_label": "LINEで問い合わせる",
   "availability": "フォームの送信先とLINE公式アカウントのURLを設定すると受付を開始できます。",
-  "photo": "media/contact.svg",
-  "booking_url": "https://cal.com/宮内隆暢-vl3nck/study-abroad"
+  "photo": "media/contact.svg"
 }
