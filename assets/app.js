@@ -63,9 +63,47 @@ async function contact(){
     <div class="form-field"><label for="inquiry-message">ご質問・ご相談 <span class="required">必須</span></label><textarea id="inquiry-message" name="message" rows="6" maxlength="5000" required placeholder="希望の国、渡航時期、期間、ご質問など"></textarea></div>
     <div class="form-hidden" aria-hidden="true"><label>空欄にしてください <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
     ${validPrivacy?`<p class="smallprint"><a href="${esc(privacy)}" target="_blank" rel="noopener noreferrer" class="text-link">プライバシーポリシー</a>をご確認ください。</p><label class="privacy-confirm"><input type="checkbox" required> プライバシーポリシーに同意する</label>`:'<p class="smallprint">個人情報の利用目的：お問い合わせへの回答・連絡のため。機微な個人情報やパスポート番号は入力しないでください。</p>'}
+    <p id="inquiry-status" class="inquiry-status" role="status" aria-live="polite" hidden></p>
     <button type="submit" class="button send-button">メールで問い合わせを送信 →</button>
   </form>`:`<div class="setup-note"><strong>お問い合わせフォームは準備中です。</strong><p>管理者がPages CMSでFormspreeの送信先URLを設定すると、この場所にフォームが表示されます。</p></div>`;
   return head(d.title,d.intro)+`<section class="section"><div class="wrap contact-grid"><div><h2>無料相談・お問い合わせ</h2><p>${text(d.guidance)}</p>${img(d.photo,'お問い合わせのイメージ','featured-photo')}<p class="smallprint">送信時にフォームサービス（Formspree）へ入力内容が送られます。送信前に入力内容をご確認ください。</p></div><div class="contact-panel"><h2 class="contact-panel-title">お問い合わせフォーム</h2>${fields}<div class="contact-separator">または</div><h3>LINEで相談する</h3><p>LINE公式アカウントからもご相談いただけます。</p>${validLine?`<a class="button line-button" href="${esc(line)}" target="_blank" rel="noopener noreferrer">${esc(d.line_label||'LINEで問い合わせる')} →</a>`:'<p class="setup-note">LINE相談は準備中です。公式アカウントのURL設定後にボタンが表示されます。</p>'}${emailReady?`<div class="contact-email"><p class="label">メールアドレス</p><a class="text-link" href="mailto:${esc(email)}">${esc(email)}</a></div>`:''}${d.phone?`<p class="label">電話番号</p><p>${esc(d.phone)}</p>`:''}<p class="smallprint contact-availability">${text(d.availability)}</p></div></div></section>`;
 }
+async function thanks(){
+  const d=await loadJson('data/pages/thanks.json');
+  document.title=`${d.title||'お問い合わせありがとうございます'} | MIGs`;
+  return `<section class="section thanks-section"><div class="wrap"><div class="thanks-panel"><div class="thanks-check" aria-hidden="true">✓</div><p class="eyebrow">THANK YOU FOR CONTACTING US</p><h1>${esc(d.title||'お問い合わせありがとうございます')}</h1><p class="thanks-lead">${text(d.message||'お問い合わせを受け付けました。\n内容を確認のうえ、担当者よりご連絡いたします。')}</p><div class="thanks-note">${text(d.notice||'※ ご返信までにお時間をいただく場合がございます。')}</div><a class="button" href="index.html">${esc(d.button_label||'トップページに戻る')} →</a></div></div></section>`;
+}
+function setupInquiryForm(){
+  const form=document.querySelector('form.inquiry-form');
+  if(!form)return;
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();
+    if(!form.reportValidity())return;
+    const button=form.querySelector('button[type="submit"]');
+    const status=form.querySelector('#inquiry-status');
+    const initialLabel=button.textContent;
+    button.disabled=true;
+    button.textContent='送信中…';
+    status.hidden=true;
+    try{
+      const response=await fetch(form.action,{
+        method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}
+      });
+      if(!response.ok){
+        let message='送信できませんでした。入力内容をご確認のうえ、もう一度お試しください。';
+        try{const result=await response.json();if(Array.isArray(result.errors)&&result.errors.length)message=result.errors.map(x=>x.message).filter(Boolean).join(' ');}catch(_){}
+        throw new Error(message);
+      }
+      // Relative URL keeps working after changing the GitHub Pages domain or repository path.
+      window.location.assign('thanks.html');
+    }catch(error){
+      status.textContent=error.message||'通信エラーが発生しました。時間をおいて再度お試しください。';
+      status.hidden=false;
+      status.classList.add('inquiry-error');
+      button.disabled=false;
+      button.textContent=initialLabel;
+    }
+  });
+}
 header();
-(async()=>{try{root.innerHTML=await({index:home,about:about,'short-term':()=>category('short-term'),'working-holiday':()=>category('working-holiday'),contact:contact,pronunciation:pronunciation,program:detail}[page]||home)();}catch(err){console.error(err);root.innerHTML=`<div class="wrap error"><h1>ページを表示できませんでした</h1><p>データの読み込みに失敗しました。GitHub Pagesで公開していること、必要なファイルがアップロードされていることをご確認ください。</p><p class="smallprint">${esc(err.message)}</p><p><a class="button" href="index.html">トップへ戻る</a></p></div>`;}})();
+(async()=>{try{root.innerHTML=await({index:home,about:about,'short-term':()=>category('short-term'),'working-holiday':()=>category('working-holiday'),contact:contact,thanks:thanks,pronunciation:pronunciation,program:detail}[page]||home)();setupInquiryForm();}catch(err){console.error(err);root.innerHTML=`<div class="wrap error"><h1>ページを表示できませんでした</h1><p>データの読み込みに失敗しました。GitHub Pagesで公開していること、必要なファイルがアップロードされていることをご確認ください。</p><p class="smallprint">${esc(err.message)}</p><p><a class="button" href="index.html">トップへ戻る</a></p></div>`;}})();

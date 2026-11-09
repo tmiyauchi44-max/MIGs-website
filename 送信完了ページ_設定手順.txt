@@ -1,0 +1,11 @@
+MIGs お問い合わせ送信完了ページの設定手順
+
+1. GitHubにこのZIPの内容をアップロードしてください（既存ファイルは上書き）。
+2. 重要：すでにPages CMSで入力したFormspree URLやメールアドレスを失わないよう、data/pages/contact.json は上書きせず既存のGitHub上のものを残してください。
+3. 追加するファイル：thanks.html、data/pages/thanks.json。更新するファイル：assets/app.js、assets/style.css、contact.html、.pages.yml。
+4. Pages CMSで「お問い合わせ送信完了ページ」を開くと、見出し・案内文・補足・ボタン文字を編集できます。
+5. フォームをテスト送信し、正常に届いた後だけthanks.htmlが表示されることを確認してください。
+6. 失敗した場合はフォーム画面にエラーが表示されます。
+
+補足：このZIPには以前のサンプル設定（空欄）の data/pages/contact.json が含まれています。GitHubの現在の設定を優先してください。
+Formspree側の設定や通信環境によってはAjax送信がブロックされる場合があります。公開サイトで必ず動作を確認してください。
