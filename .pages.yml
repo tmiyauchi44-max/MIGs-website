@@ -121,6 +121,12 @@ content:
   - name: email
     label: メールアドレス
     type: string
+  - name: form_endpoint
+    label: Formspreeのフォーム送信先URL（https://formspree.io/f/XXXXX）
+    type: string
+  - name: privacy_url
+    label: プライバシーポリシーURL（任意）
+    type: string
   - name: phone
     label: 電話番号（任意）
     type: string
