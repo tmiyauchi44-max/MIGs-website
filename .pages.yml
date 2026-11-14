@@ -103,6 +103,57 @@ content:
   - name: notice
     label: 注意書き
     type: text
+- name: access
+  label: 所在地・アクセス
+  type: file
+  path: data/pages/access.json
+  format: json
+  fields:
+  - name: title
+    label: タイトル
+    type: string
+  - name: intro
+    label: 紹介文
+    type: text
+  - name: location
+    label: 所在地（市区町村）
+    type: string
+  - name: postal_code
+    label: 郵便番号（任意）
+    type: string
+  - name: address
+    label: 公開する住所（番地・建物名まで）
+    type: text
+  - name: phone
+    label: 電話番号（任意）
+    type: string
+  - name: hours
+    label: 受付時間（任意）
+    type: string
+  - name: map_query
+    label: Google マップ検索用の住所・施設名（空欄なら住所を使用）
+    type: string
+  - name: parking
+    label: 車でお越しの場合・駐車場案内
+    type: text
+  - name: image1
+    label: 画像1
+    type: image
+  - name: image1_caption
+    label: 画像1の説明文
+    type: string
+  - name: image2
+    label: 画像2
+    type: image
+  - name: image2_caption
+    label: 画像2の説明文
+    type: string
+  - name: visit
+    label: ご来訪・留学相談の案内
+    type: text
+  - name: booking_url
+    label: Cal.comの予約URL
+    type: string
 - name: contact
   label: お問い合わせ
   type: file
